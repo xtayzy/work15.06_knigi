@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .book {
+            width: 150px;
+            padding: 20px;
+
+            color: #e1e1e1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .block {
+            margin: 0 auto;
+            display: flex;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .block_ {
+            padding: 20px;
+            border: 5px solid #003b46;
+            background-color: #91bfcc;
+        }
+
+        .books {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .cat_aut {
+            padding: 20px;
+            font-family: Bahnschrift;
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            background-color: #48808f;
+            border: 5px solid #003b46;
+            border-left: 0;
+        }
+
+        .cats, .authors, .all_books {
+            background-color: #2f4552;
+            padding: 10px;
+        }
+
+        .cats a, .authors a, .all_books a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .crud_books a {
+            font-family: sans-serif;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .crud_books {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: #48808f;
+            padding: 10px 0 10px 0;
+        }
+
+
+        .block {
+            display: flex;
+        }
+
+        .books {
+            display: flex;
+            gap: 20px;
+            width: 820px;
+            flex-wrap: wrap
+        }
+
+        .crud a {
+            text-decoration: none;
+            color: black;
+            font-size: 13px;
+        }
+
+        .crud {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            padding: 5px 0 5px 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="header"></div>
+<div class="block">
+    <div class="block_">
+        <div class="books">
+            {% for book in books %}
+            <div class="book" style='background-image: url("{{ book.category.img.url }}")'>
+                <img style="width: 150px; height: 220px" src="{{ book.image.url }}" alt="">
+                <div>{{ book.author.name }}</div>
+                <div>{{ book.name }}</div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="crud_books">
+            <a href="{% url 'crud_books' %}">CRUD</a>
+        </div>
+    </div>
+    <div class="cat_aut">
+        <div class="all_books">
+            <a href="{% url 'index' %}">Все книги</a>
+        </div>
+        <div class="cats">
+            {% for cat in categories %}
+            <div>
+                <div>
+                    <a href="{% url 'cat_filter' id=cat.id %}">{{ cat.name }}</a>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="crud">
+                <a href="{% url 'crud_cats' %}">
+                    CRUD
+                </a>
+            </div>
+        </div>
+        <div class="authors">
+            {% for author in authors %}
+            <div>
+                <a href="{% url 'aut_filter' id=author.id %}">{{ author.name }}</a>
+            </div>
+            {% endfor %}
+            <div class="crud">
+                <a href="{% url 'crud_authors' %}">
+                    CRUD
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

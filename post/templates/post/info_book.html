@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Bahnschrift;
+
+        }
+
+        .index {
+            background-color: #91bfcc;
+            border: 5px solid #003b46;
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .index a {
+            font-family: sans-serif;
+            text-decoration: none;
+            color: #003b46;
+        }
+
+        .block {
+            background-color: #91bfcc;
+            border: 5px solid #003b46;
+            display: flex;
+            padding: 20px;
+            margin-bottom: 10px;
+            gap: 20px
+        }
+
+        .book_block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            font-size: 20px;
+            border: 5px solid #003b46;
+            padding: 20px;
+            background-color: #48808f;
+            color: #003b46;
+        }
+
+        .info_block {
+            padding: 20px;
+            background-color: #48808f;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            border: 5px solid #003b46;
+            width: 300px;
+            word-break: break-word;
+            text-align: justify;
+        }
+
+        .info_block a {
+            text-decoration: none;
+            color: #003b46;
+            font-size: 19px;
+        }
+
+        .name {
+            color: white;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="">
+    <div class="index">
+        <a href="{% url 'crud_books' %}">CRUD page</a>
+    </div>
+    <div class="block">
+        <div class="book_block">
+            <div style="padding: 10px; background-image: url('{{ book.category.img.url }}')">
+                <img style="width: 300px; height: 440px" src="{{ book.image.url }}" alt="">
+            </div>
+            <div class="">
+                {{book.name}}
+            </div>
+        </div>
+        <div class="info_block">
+            <div class="cat">
+                <div class="name">
+                    Категория:
+                </div>
+                <div class="">
+                    <a href="{% url 'crud_cats' %}">{{book.category.name}}</a>
+                </div>
+            </div>
+            <div class="cat">
+                <div class="name">
+                    Автор:
+                </div>
+                <div class="">
+                    <a href="{% url 'info_author' id=book.author.id %}">{{book.author.name}}</a>
+                </div>
+            </div>
+            <div class="cat">
+                <div class="name">
+                    Описание:
+                </div>
+                <div class="">
+                    <a href="">{{book.description}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

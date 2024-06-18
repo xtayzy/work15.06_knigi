@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .index {
+            width: 1030px;
+            background-color: #91bfcc;
+            border: 5px solid #003b46;
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .index a {
+            font-family: sans-serif;
+            text-decoration: none;
+            color: #003b46;
+        }
+
+        .name_input input {
+            width: 98.9%;
+            border-width: 0;
+            background-color: #48808f;
+            height: 30px;
+            padding: 0 0 0 10px;
+        }
+
+        .name_input input::placeholder {
+            color: white;
+        }
+
+        .add_cat form {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .label {
+            display: flex;
+            align-items: center;
+            padding: 0 0 0 10px;
+            width: 98.9%;
+            height: 30px;
+            font-size: 12px;
+            text-align: center;
+            background-color: #48808f;
+            color: white;
+            cursor: pointer;
+        }
+
+        .image {
+            display: none;
+        }
+
+        form button {
+            width: 100%;
+            color: #b3b3b3;
+            font-size: 12px;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: #003b46;
+            height: 27px;
+        }
+
+        .add_cat {
+            width: 1030px;
+            background-color: #91bfcc;
+            border: 5px solid #003b46;
+            color: #003b46;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="index">
+    <a href="{% url 'crud_authors' %}">CRUD page</a>
+</div>
+<div class="add_cat">
+    <div style="font-size: 25px; font-weight: bold; margin: 0 auto">Обновить категорию</div>
+    <form action="{% url 'update_author' id=author.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="name_input">
+            <input value="{{ author.name }}" type="text" name="name" placeholder="name">
+        </div>
+        <div class="name_input">
+            <input value="{{author.bio}}" type="text" name="bio" placeholder="bio">
+        </div>
+        <label for="img" class="label">Загрузить картинку</label>
+        <input value="{{ author.img.url }}" type="file" name="image" id="img" accept="image/*" class="image">
+        <button>Сохранить</button>
+    </form>
+</div>
+</body>
+</html>

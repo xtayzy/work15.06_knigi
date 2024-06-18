@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .index {
+            width: 1030px;
+            background-color: #91bfcc;
+            border: 5px solid #003b46;
+            display: flex;
+            padding: 20px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .index a {
+            font-family: sans-serif;
+            text-decoration: none;
+            color: #003b46;
+        }
+
+        .add_cat {
+            width: 1030px;
+            background-color: #91bfcc;
+            border: 5px solid #003b46;
+            color: #003b46;
+            margin-bottom: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            font-family: sans-serif;
+        }
+
+        .cats_block {
+            width: 1030px;
+            display: flex;
+            gap: 20px;
+            border: 5px solid #003b46;
+            padding: 20px;
+            flex-wrap: wrap;
+            background-color: #91bfcc;
+            margin: 0 auto;
+        }
+
+        .cat {
+            width: 150px;
+            padding: 20px;
+            color: #e1e1e1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            background-color: #006375;
+        }
+
+        .cat_img {
+            width: 150px;
+            height: 220px;
+        }
+
+        .name_input input {
+            width: 98.9%;
+            border-width: 0;
+            background-color: #48808f;
+            height: 30px;
+            padding: 0 0 0 10px;
+        }
+
+        .name_input input::placeholder {
+            color: white;
+        }
+
+        .add_cat form {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .label {
+            display: flex;
+            align-items: center;
+            padding: 0 0 0 10px;
+            width: 98.9%;
+            height: 30px;
+            font-size: 12px;
+            text-align: center;
+            background-color: #48808f;
+            color: white;
+            cursor: pointer;
+        }
+
+        .image {
+            display: none;
+        }
+
+        form button {
+            width: 100%;
+            color: #b3b3b3;
+            font-size: 12px;
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: #003b46;
+            height: 27px;
+        }
+
+        .silki {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .silki a {
+            text-decoration: none;
+            color: #b2b2b2;
+            border: 1px solid #b2b2b2;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="index">
+    <a href="{% url 'index' %}">Index page</a>
+</div>
+<div class="add_cat">
+    <div style="font-size: 25px; font-weight: bold; margin: 0 auto">Добавить категорию</div>
+    <form action="{% url 'add_cat' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="name_input">
+            <input type="text" name="name" placeholder="name">
+        </div>
+        <label for="img" class="label">Загрузить картинку</label>
+        <input type="file" name="image" id="img" accept="image/*" class="image">
+        <button>Добавить</button>
+    </form>
+</div>
+<div class="cats_block">
+    {% for cat in categories %}
+    <div class="cat">
+        <div style="background-image: url('{{ cat.img.url }}')" class="cat_img"></div>
+        <div class="cat_name">{{ cat.name }}</div>
+        <div class="silki">
+            <a href="{% url 'delete_cat' id=cat.id %}">
+                delete
+            </a>
+            <a href="{% url 'update_cat' id=cat.id %}">
+                update
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
